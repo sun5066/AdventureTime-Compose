@@ -1,0 +1,63 @@
+[versions]
+kotlin = "1.7.0"
+hilt = "2.44"
+
+androidGradle = "7.3.0"
+androidxCoreKtx = "1.7.0"
+androidxLifecycleCompose = "2.6.0-alpha01"
+androidxCompose = "1.2.0"
+androidxActivityCompose = "1.6.0"
+androidxComposeCompiler = "1.3.1"
+androidxMaterialCompose = "1.1.1"
+coroutine = "1.6.4"
+okhttp = "4.10.0"
+retrofit = "2.9.0"
+thdevFlowAdapter = "1.0.0"
+gson = "2.8.6"
+
+junit = "4.13.2"
+androidxJunit = "1.1.3"
+androidxEspressoCore = "3.4.0"
+androidDesugarJdkLibs = "1.1.5"
+
+[libraries]
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradle" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+coroutine-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutine" }
+coroutine-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutine" }
+
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+retrofit-converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofit" }
+retrofit-flow-adapter = { module = "tech.thdev:flow-call-adapter-factory", version.ref = "thdevFlowAdapter" }
+
+google-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCoreKtx" }
+androidx-compose-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidxLifecycleCompose" }
+androidx-compose-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycleCompose" }
+androidx-compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "androidxComposeCompiler" }
+androidx-compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "androidxCompose" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
+androidx-ui = { module = "androidx.compose.ui:ui", version.ref = "androidxCompose" }
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidxCompose" }
+androidx-material-compose = { module = "androidx.compose.material:material", version.ref = "androidxMaterialCompose" }
+
+junit = { module = "junit:junit", version.ref = "junit" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidxJunit" }
+androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxEspressoCore" }
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidxCompose" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidxCompose" }
+androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidxCompose" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradle" }
+android-library = { id = "com.android.library", version.ref = "androidGradle" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
