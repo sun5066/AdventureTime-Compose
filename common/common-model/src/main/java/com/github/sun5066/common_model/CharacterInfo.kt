@@ -6,6 +6,6 @@ data class CharacterInfo(
     val displayName: String = "",
     val fullName: String = "",
     val sex: String = "",
-    private val quotes: List<String> = listOf(""),
+    val quotes: List<String> = listOf(""),
     val sprite: String = ""
 )

@@ -22,7 +22,7 @@ private val DarkColorPalette = darkColors(
     primary = Color.White,
     secondary = rust300,
     background = gray900,
-    surface = Color.White.copy(alpha = 0.15f),
+    surface = gray700,
     onPrimary = gray900,
     onSecondary = gray900,
     onBackground = taupe100,

@@ -8,4 +8,5 @@ dependencies {
     implementation(libs.coroutine.core)
     implementation(libs.coroutine.android)
     implementation(libs.google.gson)
+    implementation(libs.androidx.compose.runtime)
 }
