@@ -1,6 +1,7 @@
 package com.github.sun5066.adventure_time.ui.home
 
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -20,8 +21,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.github.sun5066.adventure_time.ui.home.animation.AnimatedShimmer
 import com.github.sun5066.adventure_time.ui.theme.AdventureTimeTheme
 import com.github.sun5066.adventure_time.ui.theme.Shapes
 import com.github.sun5066.common_model.CharacterInfo
@@ -81,17 +84,22 @@ private fun DetailCharacterCard(characterInfo: CharacterInfo, modifier: Modifier
                 characterInfo.sprite,
                 characterInfo.displayName,
                 ContentScale.Crop,
-                Modifier.weight(1f)
-            )
-            AnimatedContent(
-                targetState = characterInfo,
-            ) {
-                Column {
-                    Text(characterInfo.fullName)
-                    Text(characterInfo.sex)
-                    characterInfo.quotes.forEach { Text(it) }
+                Modifier.weight(1f),
+                onLoading = {
+                    AnimatedShimmer()
+                },
+                onSuccess = {
+                    AnimatedContent(
+                        targetState = characterInfo,
+                    ) {
+                        Column {
+                            Text(characterInfo.fullName)
+                            Text(characterInfo.sex)
+                            characterInfo.quotes.forEach { Text(it) }
+                        }
+                    }
                 }
-            }
+            )
         }
     }
 }
@@ -135,32 +143,39 @@ private fun CharacterImage(
     sprite: String,
     displayName: String,
     contentScale: ContentScale = ContentScale.Fit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onLoading: @Composable (() -> Unit)? = null,
+    onSuccess: @Composable (() -> Unit)? = null
 ) {
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
             .data(sprite)
             .build()
     )
+    val painterState = remember { painter.state }
     Image(
         painter = painter,
         contentDescription = displayName,
         contentScale = contentScale,
         modifier = modifier.fillMaxSize()
     )
+
+    when (painterState) {
+        is AsyncImagePainter.State.Loading -> onLoading?.invoke()
+        is AsyncImagePainter.State.Success -> onSuccess?.invoke()
+        else -> Unit
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     AdventureTimeTheme {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            DetailCharacterCard(charactersData[0])
-            Spacer(Modifier.weight(1f))
-            SelectCharacterRowCardList(charactersData) {}
-        }
+        CharacterScreen(
+            characters = charactersData,
+            detailCharacterInfo = charactersData[0],
+            onSelectCharacterInfo = {},
+        )
     }
 }
 
@@ -171,6 +186,7 @@ private val charactersData = List(10) {
         displayName = "Finn",
         fullName = "Finn Mertens",
         sex = "Male",
-        quotes = listOf("You don 't need a mirror to know you look good. You' re beautiful on the inside .")
+        quotes = listOf("You don 't need a mirror to know you look good. You' re beautiful on the inside ."),
+        sprite = "https://i.imgur.com/zLEMgTB.png"
     )
 }
