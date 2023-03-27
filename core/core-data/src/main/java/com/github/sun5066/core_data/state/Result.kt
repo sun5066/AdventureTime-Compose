@@ -11,7 +11,7 @@ sealed interface Result<out T> {
     object Loading : Result<Nothing>
 }
 
-internal val <T> Flow<T>.resultFlow get(): Flow<Result<T>> =
-    this.onStart { Result.Loading }
-        .map { Result.Success(it) }
-        .catch { Result.Error(it) }
+internal val <T> Flow<T>.resultFlow: Flow<Result<T>>
+    get() = map<T, Result<T>> { Result.Success(it) }
+        .onStart { emit(Result.Loading) }
+        .catch { emit(Result.Error(it)) }
